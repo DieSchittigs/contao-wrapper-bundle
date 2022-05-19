@@ -1,45 +1,14 @@
 <?php
 
-use DieSchittigs\ContaoWrapperBundle\ClassesModel;
+$GLOBALS['TL_DCA']['tl_content']['palettes']['wrapperStart'] = '{type_legend},type,headline;{template_legend:hide},customTpl;{protected_legend:hide},protected;{expert_legend:hide},guests,cssID;{invisible_legend:hide},invisible,start,stop';
+$GLOBALS['TL_DCA']['tl_content']['palettes']['wrapperStop'] = '{type_legend},type;{template_legend:hide},customTpl;{protected_legend:hide},protected;{expert_legend:hide},guests;{invisible_legend:hide},invisible,start,stop';
 
-
-foreach ($GLOBALS['TL_DCA']['tl_content']['palettes'] as $key => &$val) {
-    if ($key == '__selector__' or $key == 'default') continue;
-    $val = str_replace('{expert_legend:hide}', '{design_legend},customClass;{expert_legend:hide}', $val);
-}
-
-$GLOBALS['TL_DCA']['tl_content']['fields']['customClass'] = [
-    'label'                   => &$GLOBALS['TL_LANG']['tl_content']['customClass'],
-    'exclude'                 => true,
-    'inputType'               => 'select',
-    'options_callback'        => ['tl_content_helper', 'getClasses'],
-    'eval'                    => array('tl_class' => 'w50', 'multiple' => true, 'chosen' => true),
-    'sql'                     => "blob NULL"
-];
 
 // Automatically add a wrapper stop element
 $GLOBALS['TL_DCA']['tl_content']['config']['onsubmit_callback'][] = ['tl_content_helper', 'generateWrapperStop'];
 
 class tl_content_helper extends tl_content
 {
-    public function getClasses(DataContainer $dc)
-    {
-        $objClasses = ClassesModel::findByShowOnElement(1);
-
-        if ($objClasses === null) return;
-
-        $arrReturn = [];
-        while ($objClasses->next()) {
-
-            if ($objClasses->excludeElements && @!in_array($dc->activeRecord->type, unserialize($objClasses->elementTypes))) {
-                continue;
-            }
-
-            $arrReturn[$objClasses->id] = $objClasses->name . ' [' . $objClasses->cssClass . ']';
-        }
-
-        return $arrReturn;
-    }
 
     public function generateWrapperStop(DataContainer $dc)
     {
