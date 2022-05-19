@@ -11,12 +11,12 @@
 
 
 if (TL_MODE == "BE") {
-    $GLOBALS['TL_CSS'][] = 'bundles/contaoclasses/backend.css';
+    $GLOBALS['TL_CSS'][] = 'bundles/contaowrapper/backend.css';
 }
 // Own Wrapper
 $GLOBALS['TL_CTE']['wrapper'] = [
-    'wrapperStart' => 'DieSchittigs\DieSchittigsHelpers\ContentWrapperStart',
-    'wrapperStop' => 'DieSchittigs\DieSchittigsHelpers\ContentWrapperStop'
+    'wrapperStart' => 'DieSchittigs\ContaoWrapperBundle\ContentWrapperStart',
+    'wrapperStop' => 'DieSchittigs\ContaoWrapperBundle\ContentWrapperStop'
 ];
 
 $GLOBALS['TL_WRAPPERS']['start'][] = 'wrapperStart';

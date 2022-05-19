@@ -5,9 +5,9 @@ $GLOBALS['TL_DCA']['tl_content']['palettes']['wrapperStop'] = '{type_legend},typ
 
 
 // Automatically add a wrapper stop element
-$GLOBALS['TL_DCA']['tl_content']['config']['onsubmit_callback'][] = ['tl_content_helper', 'generateWrapperStop'];
+$GLOBALS['TL_DCA']['tl_content']['config']['onsubmit_callback'][] = ['tl_content_wrapper', 'generateWrapperStop'];
 
-class tl_content_helper extends tl_content
+class tl_content_wrapper extends tl_content
 {
 
     public function generateWrapperStop(DataContainer $dc)
