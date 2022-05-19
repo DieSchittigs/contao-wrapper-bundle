@@ -1,0 +1,14 @@
+.tl_listing_container .wrapper_start,
+.tl_listing_container .wrapper_stop {
+    background-color: #f3f3f5;
+}
+
+.tl_listing_container .wrapper_start {
+    border-bottom: none;
+}
+.tl_listing_container .wrapper_stop {
+    border-top: none;
+}
+.tl_listing_container .classes img {
+    width: 16px;
+}
