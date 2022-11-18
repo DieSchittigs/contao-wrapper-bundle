@@ -1,5 +1,5 @@
 {
-    "name": "dieschittigs/contao-wrapper-bundle",
+    "name": "heimseiten/contao-wrapper-bundle",
     "description": "Add a simple wrapper as content element for contao",
     "type": "contao-bundle",
     "keywords": [
@@ -10,7 +10,7 @@
     ],
     "require": {
         "php": "^7.2|^8.0",
-        "contao/core-bundle": "^4.9"
+        "contao/core-bundle": "^4.9 | ^5.0"
     },
     "license": "LGPL-3.0-or-later",
     "authors": [
