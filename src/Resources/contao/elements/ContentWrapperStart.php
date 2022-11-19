@@ -3,6 +3,8 @@
 namespace DieSchittigs\ContaoWrapperBundle;
 
 use Contao;
+use Contao\System;
+use Symfony\Component\HttpFoundation\Request;
 
 class ContentWrapperStart extends Contao\ContentElement
 {
@@ -18,7 +20,7 @@ class ContentWrapperStart extends Contao\ContentElement
      */
     protected function compile()
     {
-        if (TL_MODE == 'BE') {
+        if (System::getContainer()->get('contao.routing.scope_matcher')->isBackendRequest(System::getContainer()->get('request_stack')->getCurrentRequest() ?? Request::create(''))) {
             $this->strTemplate = 'be_wildcard';
             $this->Template = new Contao\BackendTemplate($this->strTemplate);
             $this->Template->title = $this->headline;
