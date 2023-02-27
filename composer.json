@@ -1,5 +1,5 @@
 {
-    "name": "heimseiten/contao-wrapper-bundle",
+    "name": "dieschittigs/contao-wrapper-bundle",
     "description": "Add a simple wrapper as content element for contao",
     "type": "contao-bundle",
     "keywords": [
