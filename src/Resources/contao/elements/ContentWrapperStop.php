@@ -3,8 +3,7 @@
 namespace DieSchittigs\ContaoWrapperBundle;
 
 use Contao\System;
-use Contao\ContentElement;
-use Contao\BackendTemplate;
+use Symfony\Component\HttpFoundation\Request;
 
 class ContentWrapperStop extends ContentElement
 {
@@ -20,9 +19,7 @@ class ContentWrapperStop extends ContentElement
      */
     protected function compile()
     {
-        $request = System::getContainer()->get('request_stack')->getCurrentRequest();
-
-        if ($request && System::getContainer()->get('contao.routing.scope_matcher')->isBackendRequest($request)) {
+        if (System::getContainer()->get('contao.routing.scope_matcher')->isBackendRequest(System::getContainer()->get('request_stack')->getCurrentRequest() ?? Request::create(''))) {
             $this->strTemplate = 'be_wildcard';
             $objTemplate = new BackendTemplate($this->strTemplate);
             $objTemplate->id = $this->id;
