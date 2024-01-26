@@ -1,5 +1,7 @@
 <?php
 
+use Contao\System;
+
 /**
  * Contao wrapper content element
  *
@@ -9,8 +11,10 @@
  */
 
 
+$request = System::getContainer()->get('request_stack')->getCurrentRequest();
+$scopeMatcher = System::getContainer()->get('contao.routing.scope_matcher');
 
-if (TL_MODE == "BE") {
+if (null !== $request && $scopeMatcher->isBackendRequest($request)) {
     $GLOBALS['TL_CSS'][] = 'bundles/contaowrapper/backend.css';
 }
 // Own Wrapper

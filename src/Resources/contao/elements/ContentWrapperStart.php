@@ -2,9 +2,11 @@
 
 namespace DieSchittigs\ContaoWrapperBundle;
 
-use Contao;
+use Contao\System;
+use Contao\ContentElement;
+use Contao\BackendTemplate;
 
-class ContentWrapperStart extends Contao\ContentElement
+class ContentWrapperStart extends ContentElement
 {
 
     /**
@@ -18,12 +20,15 @@ class ContentWrapperStart extends Contao\ContentElement
      */
     protected function compile()
     {
-        if (TL_MODE == 'BE') {
+        $request = System::getContainer()->get('request_stack')->getCurrentRequest();
+
+        if ($request && System::getContainer()->get('contao.routing.scope_matcher')->isBackendRequest($request)) {
             $this->strTemplate = 'be_wildcard';
-            $this->Template = new Contao\BackendTemplate($this->strTemplate);
-            $this->Template->title = $this->headline;
+            $objTemplate = new BackendTemplate($this->strTemplate);
+            $objTemplate->title = $this->headline;
+            $objTemplate->id = $this->id;
+
+            return $objTemplate->parse();
         }
     }
 }
-
-class_alias(ContentWrapperStart::class, 'ContentWrapperStart');

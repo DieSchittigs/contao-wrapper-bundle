@@ -2,9 +2,11 @@
 
 namespace DieSchittigs\ContaoWrapperBundle;
 
-use Contao;
+use Contao\System;
+use Contao\ContentElement;
+use Contao\BackendTemplate;
 
-class ContentWrapperStop extends Contao\ContentElement
+class ContentWrapperStop extends ContentElement
 {
 
     /**
@@ -18,11 +20,14 @@ class ContentWrapperStop extends Contao\ContentElement
      */
     protected function compile()
     {
-        if (TL_MODE == 'BE') {
-            $this->strTemplate = 'be_wildcard';
+        $request = System::getContainer()->get('request_stack')->getCurrentRequest();
 
-            $this->Template = new Contao\BackendTemplate($this->strTemplate);
+        if ($request && System::getContainer()->get('contao.routing.scope_matcher')->isBackendRequest($request)) {
+            $this->strTemplate = 'be_wildcard';
+            $objTemplate = new BackendTemplate($this->strTemplate);
+            $objTemplate->id = $this->id;
+
+            return $objTemplate->parse();
         }
     }
 }
-class_alias(ContentWrapperStop::class, 'ContentWrapperStop');
